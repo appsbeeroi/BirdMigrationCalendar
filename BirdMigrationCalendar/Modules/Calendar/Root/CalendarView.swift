@@ -14,7 +14,7 @@ struct CalendarView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
-                Image(.Images.BG)
+                Image(.Images.mainBG)
                     .adoptImage()
                 
                 VStack(spacing: 20) {

@@ -9,7 +9,7 @@ struct BirdDetailView: View {
     
     var body: some View {
         ZStack {
-            Image(.Images.BG)
+            Image(.Images.mainBG)
                 .adoptImage()
             
             VStack(spacing: 24) {

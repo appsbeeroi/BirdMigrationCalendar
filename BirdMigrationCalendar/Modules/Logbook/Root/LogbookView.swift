@@ -9,7 +9,7 @@ struct LogbookView: View {
     var body: some View {
         NavigationStack(path: $viewModel.navigationPath) {
             ZStack {
-                Image(.Images.BG)
+                Image(.Images.mainBG)
                     .adoptImage()
                 
                 VStack(spacing: 20) {

@@ -12,7 +12,7 @@ struct FavoriteRecordsView: View {
     
     var body: some View {
         ZStack {
-            Image(.Images.BG)
+            Image(.Images.mainBG)
                 .adoptImage()
             
             VStack(spacing: 20) {
