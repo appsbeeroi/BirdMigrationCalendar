@@ -6,7 +6,7 @@ struct SplashScreen: View {
     
     var body: some View {
         ZStack {
-            Image(.Images.launchBG)
+            Image(.Images.mainBG)
                 .adoptImage()
             
             VStack {

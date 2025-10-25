@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 
 struct AddRecordView: View {
     
@@ -12,6 +13,7 @@ struct AddRecordView: View {
     @State private var isShowImagePicker = false
     @State private var isShowDatePicker = false
     @State private var isLoading = false
+    @State private var isShowMap = false
     
     @FocusState var isFocused: Bool
     
@@ -28,6 +30,7 @@ struct AddRecordView: View {
                         imageSelector
                         speciesInput
                         dateSelector
+                        coordinates
                         noteInput
                         rarityInput
                     }
@@ -52,6 +55,9 @@ struct AddRecordView: View {
         .animation(.smooth, value: isShowDatePicker)
         .sheet(isPresented: $isShowImagePicker) {
             ImagePicker(selectedImage: $record.image)
+        }
+        .sheet(isPresented: $isShowMap) {
+            MapViewSheet(record: $record)
         }
     }
     
@@ -139,8 +145,7 @@ struct AddRecordView: View {
                 Text(isDateChoosed ? date : "Migration Date")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.poller(with: 16))
-                    .foregroundStyle(.bmcDarkBrown)
-                
+                    .foregroundStyle(isDateChoosed ? .bmcDarkBrown : .bmcGray)
                 
             }
             .frame(height: 60)
@@ -148,6 +153,34 @@ struct AddRecordView: View {
             .padding(.horizontal, 12)
             .background(.white)
             .cornerRadius(20)
+        }
+    }
+    
+    private var coordinates: some View {
+        HStack {
+            if let latitude = record.latitude,
+               let longitude = record.longitude {
+                let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                let coordinates = String(format: "%.2f, %.2f",
+                                         coordinate.latitude,
+                                         coordinate.longitude)
+                Text(coordinates)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.bmcDarkBrown)
+            } else {
+                Text("Coordinates")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.bmcGray)
+            }
+        }
+        .frame(height: 60)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 12)
+        .font(.poller(with: 17))
+        .background(.white)
+        .cornerRadius(20)
+        .onTapGesture {
+            isShowMap = true
         }
     }
     

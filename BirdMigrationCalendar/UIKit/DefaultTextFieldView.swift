@@ -11,9 +11,12 @@ struct DefaultTextFieldView: View {
     var body: some View {
         HStack {
             TextField("", text: $text, prompt: Text(placeholder)
-                .foregroundColor(.bmcGray))
+                    .font(.poller(with: 17))
+                    .foregroundColor(.bmcGray)
+            )
             .font(.poller(with: 17))
             .foregroundStyle(.bmcDarkBrown)
+
             
             if text != "" {
                 Button {

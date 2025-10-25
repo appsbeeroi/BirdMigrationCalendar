@@ -31,6 +31,9 @@ struct AppTabView: View {
             StatisticsView(hasTabBar: $hasTabBar)
                 .tag(AppTabViewState.statistics)
             
+            MapLogView(hasTabBar: $hasTabBar)
+                .tag(AppTabViewState.map)
+            
             SettingsView(hasTabBar: $hasTabBar)
                 .tag(AppTabViewState.settings)
         }
@@ -44,7 +47,8 @@ struct AppTabView: View {
                         selection = state 
                     } label: {
                         RoundedRectangle(cornerRadius: 26)
-                            .frame(width: 74, height: 74)
+                            .frame(height: 74)
+                            .frame(maxWidth: .infinity)
                             .foregroundStyle(selection == state ? .bmcBlue : .white)
                             .overlay {
                                 Image(state.icon)
