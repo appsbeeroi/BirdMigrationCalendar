@@ -34,8 +34,8 @@ struct AppTabView: View {
             MapLogView(hasTabBar: $hasTabBar)
                 .tag(AppTabViewState.map)
             
-            SettingsView(hasTabBar: $hasTabBar)
-                .tag(AppTabViewState.settings)
+            AchievementsView(hasTabBar: $hasTabBar)
+                .tag(AppTabViewState.achievements)
         }
     }
     
@@ -47,7 +47,7 @@ struct AppTabView: View {
                         selection = state 
                     } label: {
                         RoundedRectangle(cornerRadius: 26)
-                            .frame(height: 74)
+                            .frame(height: 60)
                             .frame(maxWidth: .infinity)
                             .foregroundStyle(selection == state ? .bmcBlue : .white)
                             .overlay {
@@ -61,10 +61,13 @@ struct AppTabView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
+            .frame(maxWidth: .infinity)
+            .padding(.top, 8)
+            .padding(.horizontal, 10)
+//            .padding(.bottom, 24)
+            .background(.white)
         }
         .frame(maxHeight: .infinity, alignment: .bottom)
-        .padding(.horizontal, 35)
-        .padding(.bottom, 24)
         .opacity(hasTabBar ? 1 : 0)
         .animation(.smooth, value: hasTabBar)
     }
@@ -73,5 +76,3 @@ struct AppTabView: View {
 #Preview {
     AppTabView()
 }
-
-

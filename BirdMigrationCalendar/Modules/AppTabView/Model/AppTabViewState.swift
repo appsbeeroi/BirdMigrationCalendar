@@ -1,3 +1,5 @@
+import UIKit
+
 enum AppTabViewState: Identifiable, CaseIterable {
     var id: Self { self }
     
@@ -5,7 +7,7 @@ enum AppTabViewState: Identifiable, CaseIterable {
     case logbook
     case statistics
     case map
-    case settings
+    case achievements
     
     var icon: ImageResource {
         switch self {
@@ -17,8 +19,8 @@ enum AppTabViewState: Identifiable, CaseIterable {
                     .Icons.statistics
             case .map:
                     .Icons.map
-            case .settings:
-                    .Icons.settings
+            case .achievements:
+                    .Icons.achievementsIcon
         }
     }
 }

@@ -8,7 +8,7 @@ struct CalendarView: View {
     
     @State private var navigationPath: [CalendarScreen] = []
     @State private var searchedText = ""
-    
+    @State private var isShowSettings = false
     @FocusState var isFocused: Bool
     
     var body: some View {
@@ -33,6 +33,12 @@ struct CalendarView: View {
                         BirdDetailView(bird: bird, migration: month)
                 }
             }
+            .fullScreenCover(isPresented: $isShowSettings) {
+                SettingsView()
+                    .onDisappear {
+                        hasTabBar = true
+                    }
+            }
             .onAppear {
                 hasTabBar = true
             }
@@ -52,9 +58,32 @@ struct CalendarView: View {
     }
     
     private var navigation: some View {
-        StrokedText(text: "Migration\ncalendar", fontSize: 35)
-            .padding(.top, 20)
-            .multilineTextAlignment(.center)
+        ZStack {
+            StrokedText(text: "Migration\ncalendar", fontSize: 35)
+                .padding(.top, 20)
+                .multilineTextAlignment(.center)
+            
+            HStack {
+                Button {
+                    hasTabBar = false
+                    isShowSettings.toggle()
+                } label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 40, height: 40)
+                            .foregroundStyle(.white.opacity(0.5))
+                        
+                        Image(.Icons.settings)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+        }
+        .padding(.horizontal, 35)
     }
     
     private var searchField: some View {

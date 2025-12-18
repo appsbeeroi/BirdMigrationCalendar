@@ -59,6 +59,24 @@ final class LogBookViewModel: ObservableObject {
             
             await self.udStorage.store(recordsUD, for: .record)
             
+            var achievement = await udStorage.retrieve(AchievementsModel.self, for: .achievements) ?? AchievementsModel()
+            
+            if achievement.isBeginner {
+                achievement.isBeginner = false
+            }
+            
+            achievement.observationCount += 1
+            achievement.uniqueBirdCount += 1
+            achievement.photosCount += 1
+            
+            let random = [false, false, false, true, false, false, false, false].randomElement() ?? false
+            
+            if !achievement.rareBirdObserved {
+                achievement.rareBirdObserved = random
+            }
+            
+            await udStorage.store(achievement, for: .achievements)
+            
             await MainActor.run {
                 self.navigationPath.removeAll()
             }
