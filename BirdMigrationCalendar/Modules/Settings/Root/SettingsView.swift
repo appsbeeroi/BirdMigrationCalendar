@@ -2,6 +2,8 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @AppStorage("isNotificationWorked") var isNotificationWorked = false
         
     @State private var isNotificationSwitchOn = false
@@ -116,8 +118,26 @@ struct SettingsView: View {
     }
     
     private var navigation: some View {
-        StrokedText(text: "Settings", fontSize: 35)
-            .padding(.top, 20)
+        ZStack {
+            StrokedText(text: "Settings", fontSize: 35)
+            
+            HStack {
+                Button {
+                    dismiss()
+                } label: {
+                    Circle()
+                        .frame(width: 42, height: 42)
+                        .foregroundStyle(.white.opacity(0.5))
+                        .overlay {
+                            Image(systemName: "arrow.backward")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundStyle(.bmcBlue)
+                        }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.top, 20)
     }
     
     private func openSettings() {
